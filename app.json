@@ -1,0 +1,17 @@
+{
+  "name": "My Dockerized Express API",
+  "description": "An Express API running inside a Docker container",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "repository": "https://github.com/Snowball-01/Asian-Drama-API",
+  "stack": "container",
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    },
+    "PORT": {
+      "description": "Port number",
+      "value": "3000"
+    }
+  }
+}

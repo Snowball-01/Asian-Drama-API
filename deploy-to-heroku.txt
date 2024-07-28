@@ -1,0 +1,8 @@
+git init 
+git add .
+git commit -m "first commit"
+docker login
+heroku container:login
+heroku create <app-name>
+heroku container:push web --app <app-name>
+heroku container:release web --app <app-name>
