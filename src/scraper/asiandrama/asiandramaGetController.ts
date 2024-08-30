@@ -133,12 +133,9 @@ export async function scrapeContent(url: string) {
     }
 
     const adg = new AsianDramaHome();
-    try {
-      adg.downloadlinks =
-        (await scrapeWithCaptcha(adg.iframe.split("id")[1])) || "None"; // Ensure this line is after constructing the object
-    } catch (error) {
-      console.log(error);
-    }
+    
+    adg.downloadlinks =
+      (await scrapeWithCaptcha(adg.iframe.split("id")[1])) || {}; // Ensure this line is after constructing the object
 
     const data: IVideoData = {
       success: true,

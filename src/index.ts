@@ -22,7 +22,7 @@ app.use(
 );
 
 // Path to the favicon.ico in the root directory
-const faviconPath = path.join(__dirname, '..', 'favicon.ico');
+const faviconPath = path.join(__dirname, '..', '..', 'favicon.ico');
 
 // Use the favicon middleware
 app.use(favicon(faviconPath));
