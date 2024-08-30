@@ -1,8 +1,13 @@
 import { load } from "cheerio";
 import AsianDrama from "../../AsianDrama";
-import { IVideoData, ListEpisode, LatestEpisodes } from "../../interfaces";
+import {
+  IVideoData,
+  ListEpisode,
+  LatestEpisodes,
+  DownloadLinks,
+} from "../../interfaces";
 import c from "../../utils/options";
-import scrapeStreamWishSite from "../../utils/scrap-streamwish";
+import scrapeWithCaptcha from "../../utils/scrap-downloadLink";
 
 const asiandrama = new AsianDrama();
 
@@ -22,7 +27,7 @@ export async function scrapeContent(url: string) {
       aired_on: string;
       rating: string;
       iframe: string;
-      streamwish: string;
+      downloadlinks: DownloadLinks;
       list_episode: ListEpisode[];
       latest_episode: LatestEpisodes[];
 
@@ -48,11 +53,19 @@ export async function scrapeContent(url: string) {
           .replace("Duration:", "")
           .trim();
 
-        const airedOn = $("#rmjs-1")
+        let airedOn = $("#rmjs-1")
           .find("p:contains('Aired On:')")
           .text()
           .replace("Aired On: ", "")
           .trim();
+
+        if (!airedOn) {
+          airedOn = $("#rmjs-1")
+            .find("p:contains('Airs On:')")
+            .text()
+            .replace("Airs On: ", "")
+            .trim();
+        }
         const ratings = $("#rmjs-1")
           .find("p:contains('Content Rating:')")
           .text()
@@ -120,7 +133,12 @@ export async function scrapeContent(url: string) {
     }
 
     const adg = new AsianDramaHome();
-    adg.streamwish = (await scrapeStreamWishSite(adg.iframe)) || "None"; // Ensure this line is after constructing the object
+    try {
+      adg.downloadlinks =
+        (await scrapeWithCaptcha(adg.iframe.split("id")[1])) || "None"; // Ensure this line is after constructing the object
+    } catch (error) {
+      console.log(error);
+    }
 
     const data: IVideoData = {
       success: true,
@@ -134,7 +152,7 @@ export async function scrapeContent(url: string) {
         rating: adg.rating,
         aired_on: adg.aired_on,
         iframe: adg.iframe,
-        streamwish: adg.streamwish,
+        downloadlinks: adg.downloadlinks,
       },
       list_episode: adg.list_episode,
       latest_episodes: adg.latest_episode,

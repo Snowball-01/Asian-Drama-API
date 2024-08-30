@@ -33,7 +33,7 @@
   "dependencies": {
     "@keyv/redis": "^2.5.7",
     "axios": "^1.7.2",
-    "cheerio": "^1.0.0-rc.12",
+    "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.19.2",
@@ -44,6 +44,7 @@
     "phin": "^3.7.0",
     "pino": "^8.11.0",
     "pino-pretty": "^10.0.0",
+    "puppeteer": "^23.2.0",
     "serve-favicon": "^2.5.0",
     "tough-cookie": "^4.1.2",
     "ts-node-dev": "^2.0.0"

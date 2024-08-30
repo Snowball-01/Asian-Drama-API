@@ -10,11 +10,15 @@ export interface IVideoData {
     aired_on: string;
     rating: string;
     iframe: string;
-    streamwish: string;
+    downloadlinks: DownloadLinks;
   };
   list_episode: ListEpisode[];
   latest_episodes: LatestEpisodes[];
   source: string;
+}
+
+export interface DownloadLinks {
+  [key: string]: string;
 }
 
 export interface ListEpisode {
