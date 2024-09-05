@@ -2,6 +2,7 @@ import { load } from "cheerio";
 import AsianDrama from "../../AsianDrama";
 import { IVideoData, ListEpisode, LatestEpisodes } from "../../interfaces";
 import c from "../../utils/options";
+import scrapeStreamlink from "../../utils/scrap-streamlink";
 
 const asiandrama = new AsianDrama();
 
@@ -21,6 +22,7 @@ export async function scrapeContent(url: string) {
       aired_on: string;
       rating: string;
       iframe: string;
+      streamlink: string;
       list_episode: ListEpisode[];
       latest_episode: LatestEpisodes[];
 
@@ -126,6 +128,7 @@ export async function scrapeContent(url: string) {
     }
 
     const adg = new AsianDramaHome();
+    adg.streamlink = (await scrapeStreamlink(adg.iframe)) || "None";
 
     const data: IVideoData = {
       success: true,
@@ -139,6 +142,7 @@ export async function scrapeContent(url: string) {
         rating: adg.rating,
         aired_on: adg.aired_on,
         iframe: adg.iframe,
+        streamlink: adg.streamlink,
       },
       list_episode: adg.list_episode,
       latest_episodes: adg.latest_episode,

@@ -10,7 +10,6 @@ import cors from "cors";
 import path from "path";
 import favicon from "serve-favicon";
 
-
 const lust = new LustPress();
 const app = express();
 
@@ -21,10 +20,11 @@ app.use(
   })
 );
 
-// Path to the favicon.ico in the root directory
-const faviconPath = path.join(__dirname, '..', '..', 'favicon.ico');
+const isProduction = process.env.NODE_ENV === "production";
+const faviconPath = isProduction
+  ? path.join(__dirname, "..", "..", "favicon.ico")
+  : path.join(__dirname, "..", "favicon.ico");
 
-// Use the favicon middleware
 app.use(favicon(faviconPath));
 
 app.get("/", slow, limiter, async (req, res) => {

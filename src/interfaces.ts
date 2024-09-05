@@ -10,6 +10,7 @@ export interface IVideoData {
     aired_on: string;
     rating: string;
     iframe: string;
+    streamlink: string;
   };
   list_episode: ListEpisode[];
   latest_episodes: LatestEpisodes[];
