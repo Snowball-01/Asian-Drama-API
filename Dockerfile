@@ -3,6 +3,9 @@ FROM node:latest
 # Set working directory
 WORKDIR /srv/app
 
+# Update npm to the latest version
+RUN npm install -g npm@latest
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
