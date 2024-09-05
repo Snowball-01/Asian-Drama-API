@@ -20,11 +20,11 @@ app.use(
   })
 );
 
-const isProduction = process.env.NODE_ENV === "production";
-const faviconPath = isProduction
-  ? path.join(__dirname, "..", "..", "favicon.ico")
-  : path.join(__dirname, "..", "favicon.ico");
 
+// Path to the favicon.ico in the root directory
+const faviconPath = path.join(__dirname, '..', 'favicon.ico');
+
+// Use the favicon middleware
 app.use(favicon(faviconPath));
 
 app.get("/", slow, limiter, async (req, res) => {
